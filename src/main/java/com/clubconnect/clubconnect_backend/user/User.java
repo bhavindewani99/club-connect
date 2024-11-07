@@ -1,7 +1,21 @@
 package com.clubconnect.clubconnect_backend.user;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.clubconnect.clubconnect_backend.event.Event;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "app_user")
@@ -63,4 +77,26 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
+    // 6th Nov code
+
+    //@JsonBackReference
+    @ManyToMany
+    @JoinTable(
+        name = "user_events",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "event_id")
+    )
+    @JsonIgnoreProperties("attendees") // Prevents recursion by ignoring 'attendees' in Event
+    private Set<Event> events = new HashSet<>();
+
+    public Set<Event> getEvents() {
+        return events;
+    }
+
+    public void setAttendees(Set<Event> events) {
+        this.events = events;
+    }
+
+
 }

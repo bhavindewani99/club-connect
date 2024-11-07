@@ -3,15 +3,15 @@ package com.clubconnect.clubconnect_backend.event;
 import java.util.List;
 
 public interface EventService {
-    Event createEvent(Event event);
+    Event createEvent(EventDTO event);
 
     List<Event> getAllEvents();
 
     Event getEventById(Long id);
 
-    Event updateEvent(Long id, Event eventDetails);
+    Event updateEvent(Long id, EventDTO eventDetails);
 
     void deleteEvent(Long id);
 
-    Event addAttendee(Long eventId, Long userId);
+    Event addUserToEvent(Long eventId, Long userId);
 }

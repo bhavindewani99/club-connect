@@ -1,37 +1,29 @@
 package com.clubconnect.clubconnect_backend.event;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.*;
-import com.clubconnect.clubconnect_backend.user.User;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.Set;
 
-
-@Entity
-public class Event {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class EventDTO {
     private Long id;
-
     private String title;
     private String description;
     private LocalDateTime date;
     private String location;
     private String category;
+    private Set<Long> attendeeIds; // IDs of the users attending this event
 
     // Constructors
-    public Event() {
+    public EventDTO() {
     }
 
-    public Event(Long id, String title, String description, LocalDateTime date, String location, String category) {
+    public EventDTO(Long id, String title, String description, LocalDateTime date, String location, String category, Set<Long> attendeeIds) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.date = date;
         this.location = location;
         this.category = category;
+        this.attendeeIds = attendeeIds;
     }
 
     // Getters and Setters
@@ -83,18 +75,11 @@ public class Event {
         this.category = category;
     }
 
-    // 6th Nov Code
-
-    //@JsonManagedReference
-    @ManyToMany(mappedBy = "events")
-    @JsonIgnoreProperties("events") // Prevents recursion by ignoring 'events' in User
-    private Set<User> attendees = new HashSet<>();
-
-    public Set<User> getAttendees() {
-        return attendees;
+    public Set<Long> getAttendeeIds() {
+        return attendeeIds;
     }
 
-    public void setAttendees(Set<User> attendees) {
-        this.attendees = attendees;
+    public void setAttendeeIds(Set<Long> attendeeIds) {
+        this.attendeeIds = attendeeIds;
     }
 }
