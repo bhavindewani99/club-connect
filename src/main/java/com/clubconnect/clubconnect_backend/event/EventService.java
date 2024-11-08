@@ -14,4 +14,6 @@ public interface EventService {
     void deleteEvent(Long id);
 
     Event addUserToEvent(Long eventId, Long userId);
+
+    List<Event> findEventsByCategory(String category);
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.clubconnect.clubconnect_backend.user.User;
@@ -71,6 +72,15 @@ public class EventController {
     public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<EventDTO>> searchEventsByCategory(@RequestParam String category) {
+        List<Event> events = eventService.findEventsByCategory(category);
+        List<EventDTO> eventDTOs = events.stream()
+                                         .map(this::convertToDto)
+                                         .toList();
+        return ResponseEntity.ok(eventDTOs);
     }
 
     //Convert Event entity to EventDTO

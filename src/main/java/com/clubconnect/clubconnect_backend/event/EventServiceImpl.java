@@ -129,5 +129,10 @@ public class EventServiceImpl implements EventService {
 
         return event;
     }
+
+    @Override
+    public List<Event> findEventsByCategory(String category) {
+        return eventRepository.findByCategory(category);
+    }
     
 }
