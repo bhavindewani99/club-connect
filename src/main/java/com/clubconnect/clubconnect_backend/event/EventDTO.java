@@ -12,6 +12,9 @@ public class EventDTO {
     private String category;
     private Set<Long> attendeeIds; // IDs of the users attending this event
 
+    private Long clubId;
+    private Set<String> tags;
+
     // Constructors
     public EventDTO() {
     }
@@ -24,6 +27,20 @@ public class EventDTO {
         this.location = location;
         this.category = category;
         this.attendeeIds = attendeeIds;
+    }
+
+     // Constructor with clubId
+     public EventDTO(Long id, String title, String description, LocalDateTime date, String location, String category,
+        Set<Long> attendeeIds, Long clubId, Set<String> tags) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.date = date;
+        this.location = location;
+        this.category = category;
+        this.attendeeIds = attendeeIds;
+        this.clubId = clubId;
+        this.tags = tags;
     }
 
     // Getters and Setters
@@ -81,5 +98,21 @@ public class EventDTO {
 
     public void setAttendeeIds(Set<Long> attendeeIds) {
         this.attendeeIds = attendeeIds;
+    }
+
+    public Long getClubId() {
+        return clubId;
+    }
+    
+    public void setClubId(Long clubId) {
+        this.clubId = clubId;
+    }
+
+    public Set<String> getTags() { 
+        return tags; 
+    }
+
+    public void setTags(Set<String> tags) { 
+        this.tags = tags; 
     }
 }
